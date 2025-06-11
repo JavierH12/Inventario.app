@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Administración</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #FFFFFF;
+      --black: #000000;
+      --very-light-pink: #c7c7c7; 
+      --text-input-field: #f7f7f7;
+      --hospital-green: #acd9b2;
+      --morado: #666; 
+      --sm: 14px;
+      --md: 16px;
+      --lg: 18px;
+    }
+
+    * {
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--text-input-field);
+    }
+
+    .layout {
+      display: flex;
+      height: calc(100vh - 60px); /* menos el navbar superior */
+      margin-top: 60px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background-color: var(--hospital-green);
+      color: var(--white);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      position: fixed;
+      top: 60px;
+      left: 10px;
+      bottom: 0;
+      overflow-y: auto;
+      height: calc(100vh - 60px);
+      margin-top: 0; /* quitamos esto */
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+      font-size: var(--md);
+    }
+
+    .sidebar a {
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 15px;
+      display: block;
+      font-weight: 500;
+      font-size: var(--sm);
+    }
+
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main content */
+    .main {
+      flex-grow: 1;
+      margin-left: 220px;
+      display: flex;
+      flex-direction: column;
+      padding: 0 20px;
+    }
+
+    .navbar {
+      background-color: var(--white);
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--very-light-pink);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border-radius: 10px;
+      margin-left: 20px;
+      margin-right: 20px;
+
+    }
+
+    .navbar h1 {
+      font-size: var(--lg);
+      color: var(--black);
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .card {
+      background-color: var(--white);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .menu {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     height: 50px;
+     background-color: var(--hospital-green);
+     color: var(--white);
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 0 20px;
+     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .menu h1 {
+     font-size: var(--lg);
+     margin: 0;
+     font-weight: 600px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: var(--md);
+      color: var(--black);
+    }
+
+    .card p {
+      color: var(--morado);
+      font-size: var(--sm);
+    }
+
+    .sidebar a img {
+  width: 20px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.tabla-inventario {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.tabla-inventario th,
+.tabla-inventario td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--very-light-pink);
+}
+
+.btn {
+  background-color: var(--hospital-green);
+  color: var(--white);
+  border: none;
+  padding: 8px 15px;
+  margin-left: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: var(--sm);
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.submenu .submenu-items {
+  display: none;
+  padding-left: 20px;
+  margin-top: 5px;
+}
+
+.submenu .submenu-items a {
+  font-size: var(--sm);
+  margin-bottom: 8px;
+  color: var(--white);
+  display: block;
+}
+
+.submenu.open .submenu-items {
+  display: block;
+}
+
+
+
+  </style>
+</head>
+<body>
+
+  <div class="menu">
+    <h2>INVENTARIO.APP</h2>
+  </div>
+
+  <div class="layout">
+    <div class="sidebar">
+      <h2>Admin Panel</h2>
+      <a href="index.html"><img src="/iconos/menu.png" alt="menu"> Menú</a>
+      <div class="submenu">
+        <a href="javascript:void(0)" class="toggle-submenu">
+            <img src="/iconos/ventas.png" alt="ventas"> Ventas ▼
+        </a>
+        <div class="submenu-items">
+            <a href="venta.html">➤ Nueva Venta</a>
+            <a href="ventas-historial.html">➤ Historial de Ventas</a>
+        </div>
+      </div>
+      <a href="caja.html"><img src="/iconos/caja-registradora.png" alt="caja"> Caja</a>
+      <a href="Inventario.html"><img src="/iconos/inventario.png" alt="inventario"> Inventario</a>
+      <a href="cliente.html"><img src="/iconos/cliente.png" alt="cliente"> Clientes</a>
+      <a href="reportes.html"><img src="/iconos/reporte.png" alt="reporte"> Reportes</a>
+      <a href="empleados.html"><img src="/iconos/empleados.png" alt="empleados"> Empleados</a>
+      <a href="#"><img src="/iconos/configuracion.png" alt="conf"> Configuración</a>
+      <a href="#"><img src="/iconos/apoyo.png" alt="apoyo"> Centro de ayuda</a>
+    </div>
+
+<div class="main">
+      <div class="navbar">
+        <h1>Inventario</h1>
+      </div>
+
+      <div class="content">
+       <div class="card" id="modulo-inventario">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+    <h3>Inventario</h3>
+    <div>
+      <button class="btn" onclick="crearProducto()">Agregar Producto</button>
+      <button class="btn" onclick="trasladoStock()">Trasladar</button>
+    </div>
+  </div>
+
+  <table class="tabla-inventario">
+    <thead>
+      <tr>
+        <th>Código</th>
+        <th>Producto</th>
+        <th>Categoría</th>
+        <th>Stock</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>#001</td>
+        <td>iPhone 7 32GB Gold</td>
+        <td>iPhone</td>
+        <td>10</td>
+        <td>95$</td>
+        <td>
+          <button class="btn btn-sm">Editar</button>
+          <button class="btn btn-sm">Eliminar</button>
+        </td>
+      </tr>
+      <!-- Más filas aquí -->
+    </tbody>
+  </table>
+</div>
+
+      </div>
+    </div>
+  </div>
+  </div>
+
+    <script>
+  document.querySelectorAll('.toggle-submenu').forEach(button => {
+    button.addEventListener('click', () => {
+      const parent = button.parentElement;
+      parent.classList.toggle('open');
+    });
+  });
+</script>
+
+</body>
+</html>

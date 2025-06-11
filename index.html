@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Administración</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #FFFFFF;
+      --black: #000000;
+      --very-light-pink: #c7c7c7; 
+      --text-input-field: #f7f7f7;
+      --hospital-green: #acd9b2;
+      --morado: #666; 
+      --sm: 14px;
+      --md: 16px;
+      --lg: 18px;
+    }
+
+    * {
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--text-input-field);
+    }
+
+    .layout {
+      display: flex;
+      height: calc(100vh - 60px); /* menos el navbar superior */
+      margin-top: 60px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background-color: var(--hospital-green);
+      color: var(--white);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      position: fixed;
+      top: 60px;
+      left: 10px;
+      bottom: 0;
+      overflow-y: auto;
+      height: calc(100vh - 60px);
+      margin-top: 0; /* quitamos esto */
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+      font-size: var(--md);
+    }
+
+    .sidebar a {
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 15px;
+      display: block;
+      font-weight: 500;
+      font-size: var(--sm);
+    }
+
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main content */
+    .main {
+      flex-grow: 1;
+      margin-left: 220px;
+      display: flex;
+      flex-direction: column;
+      padding: 0 20px;
+    }
+
+    .navbar {
+      background-color: var(--white);
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--very-light-pink);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border-radius: 10px;
+      margin-left: 20px;
+      margin-right: 20px;
+
+    }
+
+    .navbar h1 {
+      font-size: var(--lg);
+      color: var(--black);
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .card {
+      background-color: var(--white);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .menu {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     height: 50px;
+     background-color: var(--hospital-green);
+     color: var(--white);
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 0 20px;
+     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .menu h1 {
+     font-size: var(--lg);
+     margin: 0;
+     font-weight: 600px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: var(--md);
+      color: var(--black);
+    }
+
+    .card p {
+      color: var(--morado);
+      font-size: var(--sm);
+    }
+
+    .sidebar a img {
+  width: 20px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div class="menu">
+    <h2>INVENTARIO.APP</h2>
+  </div>
+
+  <div class="layout">
+    <div class="sidebar">
+      <h2>Admin Panel</h2>
+      <a href="index.html"><img src="/iconos/menu.png" alt="menu"> Menú</a>
+      <a href="venta.html"><img src="/iconos/ventas.png" alt="ventas"> Ventas</a>
+      <a href="caja.html"><img src="/iconos/caja-registradora.png" alt="caja"> Caja</a>
+      <a href="Inventario.html"><img src="/iconos/inventario.png" alt="inventario"> Inventario</a>
+      <a href="cliente.html"><img src="/iconos/cliente.png" alt="cliente"> Clientes</a>
+      <a href="reportes.html"><img src="/iconos/reporte.png" alt="reporte"> Reportes</a>
+      <a href="empleados.html"><img src="/iconos/empleados.png" alt="empleados"> Empleados</a>
+      <a href="#"><img src="/iconos/configuracion.png" alt="conf"> Configuración</a>
+      <a href="#"><img src="/iconos/apoyo.png" alt="apoyo"> Centro de ayuda</a>
+    </div>
+
+    <div class="main">
+      <div class="navbar">
+        <h1>Bienvenido al Panel de Administración</h1>
+      </div>
+
+      <div class="content">
+        <div class="card">
+          <h3>Total Ventas Hoy</h3>
+          <p>$0.00</p>
+        </div>
+        <div class="card">
+          <h3>Inventario Bajo</h3>
+          <p>3 productos necesitan reabastecimiento.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+

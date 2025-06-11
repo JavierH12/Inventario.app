@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Historial de Ventas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #FFFFFF;
+      --black: #000000;
+      --very-light-pink: #c7c7c7; 
+      --text-input-field: #f7f7f7;
+      --hospital-green: #acd9b2;
+      --morado: #666; 
+      --sm: 14px;
+      --md: 16px;
+      --lg: 18px;
+    }
+
+    * {
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--text-input-field);
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      background-color: var(--hospital-green);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+
+    .layout {
+      display: flex;
+      margin-top: 60px;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: var(--hospital-green);
+      color: var(--white);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 60px;
+      left: 10px;
+      bottom: 0;
+      overflow-y: auto;
+      border-radius: 10px;
+      height: calc(100vh - 60px);
+    }
+
+    .sidebar a {
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 10px;
+      display: block;
+      font-size: var(--sm);
+    }
+
+    .sidebar a img {
+      width: 20px;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+
+    .submenu .submenu-items {
+      display: none;
+      padding-left: 20px;
+      margin-top: 5px;
+    }
+
+    .submenu.open .submenu-items {
+      display: block;
+    }
+
+    .toggle-submenu {
+      cursor: pointer;
+      color: var(--white);
+      font-size: var(--sm);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .main {
+      flex-grow: 1;
+      margin-left: 220px;
+      display: flex;
+      flex-direction: column;
+      padding: 0 20px;
+    }
+
+    .toggle-view {
+      margin-bottom: 20px;
+    }
+
+    .toggle-view button {
+      background-color: var(--hospital-green);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .venta-lista table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .venta-lista th, .venta-lista td {
+      padding: 10px;
+      border-bottom: 1px solid var(--very-light-pink);
+      text-align: left;
+    }
+
+    .venta-cuadros {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .venta-card {
+      background: var(--white);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      width: 250px;
+    }
+
+    .venta-card h4 {
+      margin: 0 0 5px;
+    }
+
+    .venta-card p {
+      margin: 4px 0;
+      font-size: var(--sm);
+      color: var(--morado);
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .card {
+      background-color: var(--white);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .navbar {
+      background-color: var(--white);
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--very-light-pink);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border-radius: 10px;
+      margin-left: 20px;
+      margin-right: 20px;
+
+    }
+
+    .navbar h1 {
+      font-size: var(--lg);
+      color: var(--black);
+    }
+
+    .filtro-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.filtro-form label {
+  font-size: var(--sm);
+  color: var(--black);
+}
+
+.filtro-form input {
+  padding: 5px;
+  border: 1px solid var(--very-light-pink);
+  border-radius: 5px;
+}
+
+.filtro-form button {
+  background-color: var(--hospital-green);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
+    
+
+  </style>
+</head>
+<body>
+
+  <div class="menu">
+    <h2>INVENTARIO.APP</h2>
+  </div>
+
+  <div class="layout">
+    <div class="sidebar">
+      <h2>Admin Panel</h2>
+      <a href="index.html"><img src="/iconos/menu.png"> Menú</a>
+      <div class="submenu">
+        <a href="javascript:void(0)" class="toggle-submenu"><img src="/iconos/ventas.png"> Ventas ▼</a>
+        <div class="submenu-items">
+          <a href="venta.html">➤ Nueva Venta</a>
+          <a href="ventas-historial.html">➤ Historial de Ventas</a>
+        </div>
+      </div>
+      <a href="caja.html"><img src="/iconos/caja-registradora.png"> Caja</a>
+      <a href="Inventario.html"><img src="/iconos/inventario.png"> Inventario</a>
+      <a href="cliente.html"><img src="/iconos/cliente.png"> Clientes</a>
+      <a href="reportes.html"><img src="/iconos/reporte.png"> Reportes</a>
+      <a href="empleados.html"><img src="/iconos/empleados.png"> Empleados</a>
+      <a href="#"><img src="/iconos/configuracion.png"> Configuración</a>
+      <a href="#"><img src="/iconos/apoyo.png"> Centro de ayuda</a>
+    </div>
+
+    <div class="main">
+      <div class="navbar">
+        <h1>Historial de ventas</h1>
+      </div>
+
+      <div class="content">
+        <div class="card">
+
+            <form class="filtro-form" onsubmit="filtrarVentas(event)">
+  <label>Desde: <input type="date" id="fecha-desde"></label>
+  <label>Hasta: <input type="date" id="fecha-hasta"></label>
+  <label>Cliente: <input type="text" id="cliente-busqueda" placeholder="Nombre del cliente"></label>
+  <button type="submit">Buscar</button>
+</form>
+
+
+      <div class="toggle-view">
+        <button onclick="alternarVista()">Cambiar vista</button>
+      </div>
+
+      <div id="vista-lista" class="venta-lista">
+        <table>
+          <thead>
+            <tr>
+              <th>ID Venta</th>
+              <th>Fecha</th>
+              <th>Cliente</th>
+              <th>Monto</th>
+              <th>Método</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>#001</td>
+              <td>2025-06-11</td>
+              <td>Juan Pérez</td>
+              <td>$95</td>
+              <td>Efectivo</td>
+            </tr>
+            <tr>
+              <td>#002</td>
+              <td>2025-06-10</td>
+              <td>Laura Gómez</td>
+              <td>$120</td>
+              <td>Tarjeta</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="vista-cuadros" class="venta-cuadros" style="display: none;">
+        <div class="venta-card">
+          <h4>#001 - Juan Pérez</h4>
+          <p>Fecha: 2025-06-11</p>
+          <p>Monto: $95</p>
+          <p>Método: Efectivo</p>
+        </div>
+        <div class="venta-card">
+          <h4>#002 - Laura Gómez</h4>
+          <p>Fecha: 2025-06-10</p>
+          <p>Monto: $120</p>
+          <p>Método: Tarjeta</p>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+  </div>
+
+  <script>
+    function alternarVista() {
+      const lista = document.getElementById("vista-lista");
+      const cuadros = document.getElementById("vista-cuadros");
+      if (lista.style.display === "none") {
+        lista.style.display = "block";
+        cuadros.style.display = "none";
+      } else {
+        lista.style.display = "none";
+        cuadros.style.display = "flex";
+      }
+    }
+
+    // Menú desplegable
+    document.querySelectorAll('.toggle-submenu').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.parentElement.classList.toggle('open');
+      });
+    });
+  </script>
+
+  <script>
+    function filtrarVentas(event) {
+  event.preventDefault();
+
+  const desde = document.getElementById("fecha-desde").value;
+  const hasta = document.getElementById("fecha-hasta").value;
+  const cliente = document.getElementById("cliente-busqueda").value.toLowerCase();
+
+  const filas = document.querySelectorAll("#vista-lista tbody tr");
+  const tarjetas = document.querySelectorAll("#vista-cuadros .venta-card");
+
+  filas.forEach(fila => {
+    const fecha = fila.cells[1].textContent;
+    const clienteNombre = fila.cells[2].textContent.toLowerCase();
+    const visible = (!desde || fecha >= desde) &&
+                    (!hasta || fecha <= hasta) &&
+                    (!cliente || clienteNombre.includes(cliente));
+    fila.style.display = visible ? "" : "none";
+  });
+
+  tarjetas.forEach(card => {
+    const fecha = card.querySelector("p:nth-of-type(1)").textContent.replace("Fecha: ", "");
+    const clienteNombre = card.querySelector("h4").textContent.split(" - ")[1].toLowerCase();
+    const visible = (!desde || fecha >= desde) &&
+                    (!hasta || fecha <= hasta) &&
+                    (!cliente || clienteNombre.includes(cliente));
+    card.style.display = visible ? "" : "none";
+  });
+}
+
+  </script>
+
+  
+</body>
+</html>
+

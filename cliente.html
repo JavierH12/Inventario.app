@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Administración</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #FFFFFF;
+      --black: #000000;
+      --very-light-pink: #c7c7c7; 
+      --text-input-field: #f7f7f7;
+      --hospital-green: #acd9b2;
+      --morado: #666; 
+      --sm: 14px;
+      --md: 16px;
+      --lg: 18px;
+    }
+
+    * {
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--text-input-field);
+    }
+
+    .layout {
+      display: flex;
+      height: calc(100vh - 60px); /* menos el navbar superior */
+      margin-top: 60px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background-color: var(--hospital-green);
+      color: var(--white);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      position: fixed;
+      top: 60px;
+      left: 10px;
+      bottom: 0;
+      overflow-y: auto;
+      height: calc(100vh - 60px);
+      margin-top: 0; /* quitamos esto */
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+      font-size: var(--md);
+    }
+
+    .sidebar a {
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 15px;
+      display: block;
+      font-weight: 500;
+      font-size: var(--sm);
+    }
+
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main content */
+    .main {
+      flex-grow: 1;
+      margin-left: 220px;
+      display: flex;
+      flex-direction: column;
+      padding: 0 20px;
+    }
+
+    .navbar {
+      background-color: var(--white);
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--very-light-pink);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border-radius: 10px;
+      margin-left: 20px;
+      margin-right: 20px;
+
+    }
+
+    .navbar h1 {
+      font-size: var(--lg);
+      color: var(--black);
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .card {
+      background-color: var(--white);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .menu {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     height: 50px;
+     background-color: var(--hospital-green);
+     color: var(--white);
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 0 20px;
+     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .menu h1 {
+     font-size: var(--lg);
+     margin: 0;
+     font-weight: 600px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: var(--md);
+      color: var(--black);
+    }
+
+    .card p {
+      color: var(--morado);
+      font-size: var(--sm);
+    }
+
+    .sidebar a img {
+  width: 20px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+form input {
+  margin: 5px;
+  padding: 8px;
+  border: 1px solid var(--very-light-pink);
+  border-radius: 5px;
+}
+
+button {
+  background-color: var(--hospital-green);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.venta-busqueda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.venta-busqueda label {
+  font-size: var(--sm);
+  color: var(--black);
+}
+
+.venta-busqueda input {
+  padding: 5px;
+  border: 1px solid var(--very-light-pink);
+  border-radius: 5px;
+}
+
+.venta-busqueda button{
+  background-color: var(--hospital-green);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.venta-tabla table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.venta-tabla th,
+.venta-tabla td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--very-light-pink);
+}
+
+.venta-detalles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="menu">
+    <h2>INVENTARIO.APP</h2>
+  </div>
+
+  <div class="layout">
+    <div class="sidebar">
+      <h2>Admin Panel</h2>
+      <a href="index.html"><img src="/iconos/menu.png" alt="menu"> Menú</a>
+      <a href="venta.html"><img src="/iconos/ventas.png" alt="ventas"> Ventas</a>
+      <a href="caja.html"><img src="/iconos/caja-registradora.png" alt="caja"> Caja</a>
+      <a href="Inventario.html"><img src="/iconos/inventario.png" alt="inventario"> Inventario</a>
+      <a href="cliente.html"><img src="/iconos/cliente.png" alt="cliente"> Clientes</a>
+      <a href="reportes.html"><img src="/iconos/reporte.png" alt="reporte"> Reportes</a>
+      <a href="empleados.html"><img src="/iconos/empleados.png" alt="empleados"> Empleados</a>
+      <a href="#"><img src="/iconos/configuracion.png" alt="conf"> Configuración</a>
+      <a href="#"><img src="/iconos/apoyo.png" alt="apoyo"> Centro de ayuda</a>
+    </div>
+
+    <div class="main">
+      <div class="navbar">
+        <h1>Clientes</h1>
+      </div>
+
+      <div class="content">
+        <div class="card">
+        <!-- Filtros -->
+<div class="venta-busqueda">
+  <input type="text" id="filtro" placeholder="Buscar por nombre, correo o cédula">
+  <button onclick="filtrarClientes()">Buscar</button>
+  <button onclick="exportarClientesCSV()">Exportar CSV</button>
+</div>
+
+<!-- Formulario de cliente -->
+<form onsubmit="agregarCliente(event)">
+  <input type="text" id="nombre" placeholder="Nombre" required>
+  <input type="text" id="apellido" placeholder="Apellido" required>
+  <input type="text" id="cedula" placeholder="Cédula de Identidad" required>
+  <input type="email" id="correo" placeholder="Correo" required>
+  <input type="tel" id="telefono" placeholder="Teléfono">
+  <button type="submit">Agregar Cliente</button>
+</form>
+
+<!-- Tabla de clientes -->
+<div class="venta-tabla">
+  <table id="tabla-clientes">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Cédula</th>
+        <th>Correo</th>
+        <th>Teléfono</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- dinámico -->
+    </tbody>
+  </table>
+</div>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let clientes = [];
+
+function agregarCliente(event) {
+  event.preventDefault();
+
+  const nombre = document.getElementById("nombre").value.trim();
+  const apellido = document.getElementById("apellido").value.trim();
+  const cedula = document.getElementById("cedula").value.trim();
+  const correo = document.getElementById("correo").value.trim();
+  const telefono = document.getElementById("telefono").value.trim();
+
+  clientes.push({ nombre, apellido, cedula, correo, telefono });
+  actualizarTablaClientes();
+  event.target.reset();
+}
+
+function actualizarTablaClientes(lista = clientes) {
+  const tbody = document.querySelector("#tabla-clientes tbody");
+  tbody.innerHTML = "";
+
+  lista.forEach((cliente, index) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${cliente.nombre}</td>
+      <td>${cliente.apellido}</td>
+      <td>${cliente.cedula}</td>
+      <td>${cliente.correo}</td>
+      <td>${cliente.telefono}</td>
+      <td>
+        <button onclick="editarCliente(${index})">Editar</button>
+        <button onclick="eliminarCliente(${index})">Eliminar</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function eliminarCliente(index) {
+  if (confirm("¿Eliminar este cliente?")) {
+    clientes.splice(index, 1);
+    actualizarTablaClientes();
+  }
+}
+
+function editarCliente(index) {
+  const cliente = clientes[index];
+  document.getElementById("nombre").value = cliente.nombre;
+  document.getElementById("apellido").value = cliente.apellido;
+  document.getElementById("cedula").value = cliente.cedula;
+  document.getElementById("correo").value = cliente.correo;
+  document.getElementById("telefono").value = cliente.telefono;
+
+  clientes.splice(index, 1); // reemplazará con los nuevos datos
+  actualizarTablaClientes();
+}
+
+function filtrarClientes() {
+  const filtro = document.getElementById("filtro").value.toLowerCase();
+
+  const filtrados = clientes.filter(c =>
+    c.nombre.toLowerCase().includes(filtro) ||
+    c.apellido.toLowerCase().includes(filtro) ||
+    c.correo.toLowerCase().includes(filtro) ||
+    c.cedula.toLowerCase().includes(filtro)
+  );
+
+  actualizarTablaClientes(filtrados);
+}
+
+function exportarClientesCSV() {
+  const headers = ["Nombre", "Apellido", "Cédula", "Correo", "Teléfono"];
+  const rows = clientes.map(c => [c.nombre, c.apellido, c.cedula, c.correo, c.telefono]);
+
+  let csvContent = "data:text/csv;charset=utf-8," + [headers, ...rows].map(e => e.join(",")).join("\n");
+
+  const link = document.createElement("a");
+  link.setAttribute("href", encodeURI(csvContent));
+  link.setAttribute("download", "clientes.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+  </script>
+
+</body>
+</html>

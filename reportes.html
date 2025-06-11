@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Administración</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --white: #FFFFFF;
+      --black: #000000;
+      --very-light-pink: #c7c7c7; 
+      --text-input-field: #f7f7f7;
+      --hospital-green: #acd9b2;
+      --morado: #666; 
+      --sm: 14px;
+      --md: 16px;
+      --lg: 18px;
+    }
+
+    * {
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--text-input-field);
+    }
+
+    .layout {
+      display: flex;
+      height: calc(100vh - 60px); /* menos el navbar superior */
+      margin-top: 60px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background-color: var(--hospital-green);
+      color: var(--white);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      position: fixed;
+      top: 60px;
+      left: 10px;
+      bottom: 0;
+      overflow-y: auto;
+      height: calc(100vh - 60px);
+      margin-top: 0; /* quitamos esto */
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+      font-size: var(--md);
+    }
+
+    .sidebar a {
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 15px;
+      display: block;
+      font-weight: 500;
+      font-size: var(--sm);
+    }
+
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main content */
+    .main {
+      flex-grow: 1;
+      margin-left: 220px;
+      display: flex;
+      flex-direction: column;
+      padding: 0 20px;
+    }
+
+    .navbar {
+      background-color: var(--white);
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--very-light-pink);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border-radius: 10px;
+      margin-left: 20px;
+      margin-right: 20px;
+
+    }
+
+    .navbar h1 {
+      font-size: var(--lg);
+      color: var(--black);
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .card {
+      background-color: var(--white);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .menu {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     height: 50px;
+     background-color: var(--hospital-green);
+     color: var(--white);
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 0 20px;
+     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .menu h1 {
+     font-size: var(--lg);
+     margin: 0;
+     font-weight: 600px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: var(--md);
+      color: var(--black);
+    }
+
+    .card p {
+      color: var(--morado);
+      font-size: var(--sm);
+    }
+
+    .sidebar a img {
+  width: 20px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.venta-busqueda {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.venta-busqueda input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--very-light-pink);
+  border-radius: 5px;
+}
+
+.venta-busqueda button {
+  background-color: var(--hospital-green);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.venta-busqueda select{
+padding: 8px;
+  border: 1px solid var(--very-light-pink);
+  border-radius: 5px;
+}
+
+.venta-tabla table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.venta-tabla th,
+.venta-tabla td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--very-light-pink);
+}
+
+.venta-detalles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="menu">
+    <h2>INVENTARIO.APP</h2>
+  </div>
+
+  <div class="layout">
+    <div class="sidebar">
+      <h2>Admin Panel</h2>
+      <a href="index.html"><img src="/iconos/menu.png" alt="menu"> Menú</a>
+      <a href="venta.html"><img src="/iconos/ventas.png" alt="ventas"> Ventas</a>
+      <a href="caja.html"><img src="/iconos/caja-registradora.png" alt="caja"> Caja</a>
+      <a href="Inventario.html"><img src="/iconos/inventario.png" alt="inventario"> Inventario</a>
+      <a href="cliente.html"><img src="/iconos/cliente.png" alt="cliente"> Clientes</a>
+      <a href="reportes.html"><img src="/iconos/reporte.png" alt="reporte"> Reportes</a>
+      <a href="empleados.html"><img src="/iconos/empleados.png" alt="empleados"> Empleados</a>
+      <a href="#"><img src="/iconos/configuracion.png" alt="conf"> Configuración</a>
+      <a href="#"><img src="/iconos/apoyo.png" alt="apoyo"> Centro de ayuda</a>
+    </div>
+
+    <div class="main">
+      <div class="navbar">
+        <h1>Reportes</h1>
+      </div>
+
+      <div class="content">
+        <div class="card">
+  <h3>Reportes Generales</h3>
+
+  <!-- Filtros -->
+  <div class="venta-busqueda">
+  <input type="date" id="fechaInicio">
+  <input type="date" id="fechaFin">
+  <select id="tipoReporte">
+    <option value="todo">Todos</option>
+    <option value="venta">Ventas</option>
+    <option value="caja">Caja</option>
+    <option value="cliente">Clientes</option>
+  </select>
+  <select id="filtroProducto">
+    <option value="">Todos los productos</option>
+    <option value="iPhone">iPhone</option>
+    <option value="Laptop">Laptop</option>
+    <!-- Agrega más opciones según tus productos -->
+  </select>
+  <select id="filtroCategoria">
+    <option value="">Todas las categorías</option>
+    <option value="Electrónica">Electrónica</option>
+    <option value="Frutas">Frutas</option>
+    <!-- Agrega más según categorías -->
+  </select>
+  <button onclick="generarReporte()">Generar</button>
+  <button onclick="exportarReporteCSV()">Exportar CSV</button>
+  <button onclick="exportarPDF()">Exportar PDF</button>
+</div>
+
+
+<!-- Contenedor del resumen -->
+<div id="reporteResumen" style="margin-bottom: 10px; font-weight: bold;"></div>
+
+<canvas id="chartResumen" width="400" height="200" style="margin-bottom:20px;"></canvas>
+
+  <!-- Contenedor del reporte -->
+  <div id="resultadoReporte" class="venta-tabla">
+    <table>
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Descripción</th>
+          <th>Monto</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody id="tablaReporteBody">
+        <!-- Resultados dinámicos -->
+      </tbody>
+    </table>
+  </div>
+
+  
+</div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const datosSimulados = [
+  { tipo: "venta", descripcion: "Venta iPhone", monto: 300, fecha: "2025-06-01", producto: "iPhone", categoria: "Electrónica" },
+  { tipo: "caja", descripcion: "Ingreso inicial", monto: 200, fecha: "2025-06-02", producto: "", categoria: "" },
+  { tipo: "venta", descripcion: "Venta Laptop", monto: 500, fecha: "2025-06-04", producto: "Laptop", categoria: "Electrónica" },
+  { tipo: "caja", descripcion: "Pago proveedor", monto: -150, fecha: "2025-06-06", producto: "", categoria: "" },
+  { tipo: "cliente", descripcion: "Nuevo cliente", monto: 0, fecha: "2025-06-07", producto: "", categoria: "" },
+];
+
+
+let resumenChart;
+
+function generarReporte() {
+  const inicio = document.getElementById("fechaInicio").value;
+  const fin = document.getElementById("fechaFin").value;
+  const tipo = document.getElementById("tipoReporte").value;
+  const prod = document.getElementById("filtroProducto").value;
+  const cat = document.getElementById("filtroCategoria").value;
+
+  const filtrados = datosSimulados.filter(item => {
+    const fechaOk = (!inicio || item.fecha >= inicio) && (!fin || item.fecha <= fin);
+    const tipoOk = tipo === "todo" || item.tipo === tipo;
+    const prodOk = !prod || item.producto === prod;
+    const catOk = !cat || item.categoria === cat;
+    return fechaOk && tipoOk && prodOk && catOk;
+  });
+
+  // Tabla
+  const tbody = document.getElementById("tablaReporteBody");
+  tbody.innerHTML = "";
+  let total = 0;
+  filtrados.forEach(item => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${item.tipo}</td>
+      <td>${item.descripcion}</td>
+      <td>${item.monto}$</td>
+      <td>${item.fecha}</td>
+    `;
+    tbody.appendChild(tr);
+    total += item.monto;
+  });
+  document.getElementById("reporteResumen").textContent = `Total: ${total.toFixed(2)}$`;
+
+  // Gráfico
+  const ctx = document.getElementById("chartResumen").getContext("2d");
+  const labels = filtrados.map(i => i.fecha);
+  const data = filtrados.map(i => i.monto);
+
+  if (resumenChart) resumenChart.destroy();
+
+  resumenChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Montos',
+        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+        data
+      }]
+    },
+    options: {
+      scales: {
+        x: { title: { display: true, text: 'Fecha' } },
+        y: { title: { display: true, text: 'Monto ($)' } }
+      }
+    }
+  });
+}
+
+
+  </script>
+
+</body>
+</html>

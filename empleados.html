@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Administración</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --white: #FFFFFF;
+      --black: #000000;
+      --very-light-pink: #c7c7c7; 
+      --text-input-field: #f7f7f7;
+      --hospital-green: #acd9b2;
+      --morado: #666; 
+      --sm: 14px;
+      --md: 16px;
+      --lg: 18px;
+    }
+
+    * {
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--text-input-field);
+    }
+
+    .layout {
+      display: flex;
+      height: calc(100vh - 60px); /* menos el navbar superior */
+      margin-top: 60px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background-color: var(--hospital-green);
+      color: var(--white);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      position: fixed;
+      top: 60px;
+      left: 10px;
+      bottom: 0;
+      overflow-y: auto;
+      height: calc(100vh - 60px);
+      margin-top: 0; /* quitamos esto */
+    }
+
+    .sidebar h2 {
+      margin-bottom: 30px;
+      font-size: var(--md);
+    }
+
+    .sidebar a {
+      color: var(--white);
+      text-decoration: none;
+      margin-bottom: 15px;
+      display: block;
+      font-weight: 500;
+      font-size: var(--sm);
+    }
+
+    .sidebar a:hover {
+      text-decoration: underline;
+    }
+
+    /* Main content */
+    .main {
+      flex-grow: 1;
+      margin-left: 220px;
+      display: flex;
+      flex-direction: column;
+      padding: 0 20px;
+    }
+
+    .navbar {
+      background-color: var(--white);
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--very-light-pink);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      border-radius: 10px;
+      margin-left: 20px;
+      margin-right: 20px;
+
+    }
+
+    .navbar h1 {
+      font-size: var(--lg);
+      color: var(--black);
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .card {
+      background-color: var(--white);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .menu {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     height: 50px;
+     background-color: var(--hospital-green);
+     color: var(--white);
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 0 20px;
+     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .menu h1 {
+     font-size: var(--lg);
+     margin: 0;
+     font-weight: 600px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: var(--md);
+      color: var(--black);
+    }
+
+    .card p {
+      color: var(--morado);
+      font-size: var(--sm);
+    }
+
+    .sidebar a img {
+  width: 20px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.venta-busqueda {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.venta-busqueda input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--very-light-pink);
+  border-radius: 5px;
+}
+
+button {
+  background-color: var(--hospital-green);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.venta-tabla table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.venta-tabla th,
+.venta-tabla td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--very-light-pink);
+}
+
+.venta-detalles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+form input {
+  margin: 5px;
+  padding: 8px;
+  border: 1px solid var(--very-light-pink);
+  border-radius: 5px;
+}
+
+
+
+  </style>
+</head>
+<body>
+
+  <div class="menu">
+    <h2>INVENTARIO.APP</h2>
+  </div>
+
+  <div class="layout">
+    <div class="sidebar">
+      <h2>Admin Panel</h2>
+      <a href="index.html"><img src="/iconos/menu.png" alt="menu"> Menú</a>
+      <a href="venta.html"><img src="/iconos/ventas.png" alt="ventas"> Ventas</a>
+      <a href="caja.html"><img src="/iconos/caja-registradora.png" alt="caja"> Caja</a>
+      <a href="Inventario.html"><img src="/iconos/inventario.png" alt="inventario"> Inventario</a>
+      <a href="cliente.html"><img src="/iconos/cliente.png" alt="cliente"> Clientes</a>
+      <a href="reportes.html"><img src="/iconos/reporte.png" alt="reporte"> Reportes</a>
+      <a href="empleados.html"><img src="/iconos/empleados.png" alt="empleados"> Empleados</a>
+      <a href="#"><img src="/iconos/configuracion.png" alt="conf"> Configuración</a>
+      <a href="#"><img src="/iconos/apoyo.png" alt="apoyo"> Centro de ayuda</a>
+    </div>
+
+    <div class="main">
+      <div class="navbar">
+        <h1>Bienvenido al Panel de Administración</h1>
+      </div>
+
+      <div class="content">
+        <div class="card">
+  <h3>Gestión de Empleados</h3>
+
+  <!-- Filtros de búsqueda -->
+  <div class="venta-busqueda">
+    <input type="text" id="busquedaEmpleado" placeholder="Buscar por cédula o nombre">
+    <button onclick="buscarEmpleado()">Buscar</button>
+    <button onclick="exportarEmpleadosCSV()">Exportar CSV</button>
+    <button onclick="exportarEmpleadosPDF()">Exportar PDF</button>
+  </div>
+
+  <!-- Formulario de registro -->
+  <form onsubmit="agregarEmpleado(event)" style="margin-bottom: 20px;">
+    <div class="venta-detalles">
+      <div class="cliente-info">
+        <input type="text" id="nombre" placeholder="Nombre" required>
+        <input type="text" id="apellido" placeholder="Apellido" required>
+        <input type="text" id="cedula" placeholder="Cédula" required>
+        <input type="text" id="cargo" placeholder="Cargo" required>
+        <input type="date" id="fechaIngreso" required>
+      </div>
+      <div class="resumen">
+        <button class="btn-generar" type="submit">Agregar Empleado</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Tabla de empleados -->
+  <div class="venta-tabla">
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Cédula</th>
+          <th>Cargo</th>
+          <th>Fecha de Ingreso</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody id="tablaEmpleadosBody">
+        <!-- Se llena dinámicamente -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+let empleados = [];
+
+function agregarEmpleado(e) {
+  e.preventDefault();
+  const nombre = document.getElementById("nombre").value;
+  const apellido = document.getElementById("apellido").value;
+  const cedula = document.getElementById("cedula").value;
+  const cargo = document.getElementById("cargo").value;
+  const fecha = document.getElementById("fechaIngreso").value;
+
+  empleados.push({ nombre, apellido, cedula, cargo, fecha });
+  renderEmpleados();
+  e.target.reset();
+}
+
+function renderEmpleados(filtrados = empleados) {
+  const tbody = document.getElementById("tablaEmpleadosBody");
+  tbody.innerHTML = "";
+
+  filtrados.forEach((emp, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${emp.nombre}</td>
+      <td>${emp.apellido}</td>
+      <td>${emp.cedula}</td>
+      <td>${emp.cargo}</td>
+      <td>${emp.fecha}</td>
+      <td>
+        <button onclick="eliminarEmpleado(${i})" class="btn-eliminar">Eliminar</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function eliminarEmpleado(index) {
+  empleados.splice(index, 1);
+  renderEmpleados();
+}
+
+function buscarEmpleado() {
+  const q = document.getElementById("busquedaEmpleado").value.toLowerCase();
+  const resultado = empleados.filter(emp =>
+    emp.nombre.toLowerCase().includes(q) ||
+    emp.cedula.toLowerCase().includes(q)
+  );
+  renderEmpleados(resultado);
+}
+
+function exportarEmpleadosCSV() {
+  let csv = "Nombre,Apellido,Cédula,Cargo,Fecha de Ingreso\n";
+  empleados.forEach(emp => {
+    csv += `${emp.nombre},${emp.apellido},${emp.cedula},${emp.cargo},${emp.fecha}\n`;
+  });
+
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "empleados.csv";
+  a.click();
+}
+
+function exportarEmpleadosPDF() {
+  const doc = new window.jspdf.jsPDF();
+  doc.text("Listado de Empleados", 10, 10);
+
+  let y = 20;
+  empleados.forEach(emp => {
+    doc.text(`${emp.nombre} ${emp.apellido} - ${emp.cedula} - ${emp.cargo} - ${emp.fecha}`, 10, y);
+    y += 10;
+  });
+
+  doc.save("empleados.pdf");
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+</body>
+</html>
